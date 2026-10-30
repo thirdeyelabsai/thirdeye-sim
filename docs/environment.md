@@ -1,4 +1,4 @@
-# Gurgaon driving environment
+# Dream: the Gurgaon driving environment
 
 A Gymnasium environment for driving a car along a route on Gurgaon's real road network (OpenStreetMap), in
 traffic that behaves the way Indian traffic does and with events at the rates we measured from Indian dashcam

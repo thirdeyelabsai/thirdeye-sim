@@ -1,10 +1,11 @@
-# Gurgaon driving simulator
+# Dream
 
-Drive Gurgaon's real roads in traffic that behaves like India's. Two-wheelers squeeze past, autos cut in,
+A driving simulator of Gurgaon's real roads, in traffic that behaves like India's. Two-wheelers squeeze past, autos cut in,
 people cross anywhere and cows stand in the lane. How often each of these happens comes from dashcam footage of
-Delhi NCR that the Third Eye Labs team labelled by hand.
+Delhi NCR that the Third Eye Labs team labelled by hand. The name comes from the world-models idea: driving
+software can learn inside a dream of the world before it meets the real one.
 
-- **Play it in your browser:** https://sim.thirdeyelabs.ai (nothing to install)
+- **Play it in your browser:** https://dream.thirdeyelabs.ai (nothing to install)
 - **Use it in Python:** a [Gymnasium](https://gymnasium.farama.org) environment for training and testing driving
   software, with planner scores in the style of nuPlan and CARLA.
 
@@ -51,7 +52,7 @@ python -m thirdeye_sim.realism
 ```
 
 Compares how often each kind of event happens in the simulator with how often it happens in our footage, and
-how fast traffic moves. The results and what they do not cover yet are at https://sim.thirdeyelabs.ai/realism.
+how fast traffic moves. The results and what they do not cover yet are at https://dream.thirdeyelabs.ai/realism.
 
 ## What is measured and what is assumed
 

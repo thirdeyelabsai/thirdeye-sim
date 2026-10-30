@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "thirdeye-sim"
 version = "0.1.0"
-description = "A driving environment on Gurgaon's real roads, in traffic and events at rates measured from Indian dashcam footage"
+description = "Dream: a driving environment on Gurgaon's real roads, in traffic and events at rates measured from Indian dashcam footage"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
@@ -31,7 +31,7 @@ render = ["pygame>=2.5", "moderngl>=5.10", "pyproj>=3.6"]
 map = ["sumolib>=1.20", "pyproj>=3.6"]
 
 [project.urls]
-Homepage = "https://sim.thirdeyelabs.ai"
+Homepage = "https://dream.thirdeyelabs.ai"
 Repository = "https://github.com/thirdeyelabsai/thirdeye-sim"
 Documentation = "https://github.com/thirdeyelabsai/thirdeye-sim/blob/main/docs/environment.md"
 Company = "https://thirdeyelabs.ai"
