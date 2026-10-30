@@ -6,8 +6,9 @@ export default defineConfig({
   build: {
     target: "es2022",
     rollupOptions: {
-      // the landing page, the game and the realism check
-      input: { main: resolve(__dirname, "index.html"), play: resolve(__dirname, "play.html"), realism: resolve(__dirname, "realism.html") },
+      // the landing page, the game, the realism check and the methodology
+      input: { main: resolve(__dirname, "index.html"), play: resolve(__dirname, "play.html"), realism: resolve(__dirname, "realism.html"),
+               methodology: resolve(__dirname, "methodology.html") },
     },
   },
 });
