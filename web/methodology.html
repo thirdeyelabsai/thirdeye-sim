@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Methodology · Dream</title>
   <link rel="canonical" href="https://dream.thirdeyelabs.ai/methodology" />
-  <meta name="description" content="Why we built Dream and how: our thesis that how often things happen on Indian roads can be measured from dashcam footage, what we set out to test, what we found, what is measured and what is assumed, and what comes next." />
+  <meta name="description" content="How we built Dream: our thesis that how often things happen on Indian roads can be measured from dashcam footage, the labelled clips, how AI video models compared with our labeller, how we counted, the realism check, a planner benchmark, and what is measured and what is assumed." />
   <meta property="og:title" content="How we built Dream, and why" />
-  <meta property="og:description" content="Our thesis, the experiments behind Dream, what is measured and what is assumed, and what comes next." />
+  <meta property="og:description" content="The thesis, the footage and labels, the AI models we tried, the realism check and a planner benchmark, with the data behind each." />
   <meta property="og:image" content="https://dream.thirdeyelabs.ai/play.jpg" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Fira+Code:wght@400&family=Inter:wght@400;500;600&display=swap" />
   <script type="module" src="/src/site.ts"></script>
+  <script type="module" src="/src/methodology.ts"></script>
 </head>
 <body>
   <header class="site-header">
@@ -33,78 +34,103 @@
   </header>
 
   <main id="main">
-    <section class="hero solo" style="padding-bottom:3rem">
+    <section class="hero solo" style="padding-bottom:2.5rem">
       <div class="shell">
         <div class="hero-text">
-          <p class="eyebrow t-label">Methodology</p>
+          <p class="eyebrow t-label">Methodology · 30 October 2026</p>
           <h1 class="t-h2">How we built Dream, and why.</h1>
-          <p class="t-lead">Dream is the first test of one idea: what makes Indian roads hard for driving software can be measured from dashcam footage, and once it is measured, software can practise against it before it meets the real road. This page sets out that idea, what we tried, what we found and what we have not shown yet.</p>
+          <p class="t-lead">Dream tests one idea: what makes Indian roads hard for driving software can be measured from dashcam footage, and once it is measured, software can practise against it before it meets the real road. This page sets out the data, the method and the results, including what did not work and what we have not shown yet.</p>
         </div>
       </div>
     </section>
 
-    <section class="bay" style="padding-top:0" aria-labelledby="thesis">
-      <div class="shell prose">
-        <p class="eyebrow t-label">Our thesis</p>
-        <h2 class="t-h3" id="thesis">The hard part is how often things happen.</h2>
-        <p class="t-body">Most driving software learns on orderly roads. Indian roads are not orderly, but they are not random either. Two-wheelers squeeze past every minute or so, people cross wherever they need to, autos cut in, and now and then a vehicle comes the wrong way. Each of these happens at some rate, and a rate is something you can count.</p>
-        <p class="t-body">We collect dashcam footage on Indian roads for a living. So we asked whether that footage alone could tell us how often each of these things happens, and whether a simulator built on those numbers would make driving software face Indian roads more honestly than the ones it is tested on today.</p>
-      </div>
-    </section>
-
-    <section class="bay" aria-labelledby="questions">
+    <section class="pb" aria-label="Results at a glance">
       <div class="shell">
-        <div class="head">
-          <p class="eyebrow t-label">What we set out to test</p>
-          <h2 class="t-h3" id="questions">Four questions, and what we found.</h2>
-        </div>
-        <dl class="points two">
-          <div>
-            <dt class="t-h4">1. Can dashcam footage tell us how often things happen?</dt>
-            <dd class="t-body">Yes, with people doing the labelling. Our team labelled <span data-fill="clips">100</span> random 4-second clips by hand, each with its main event. We also tried off-the-shelf AI video models on the same clips. The best of them agreed with our people on only about half, so Dream uses the people's labels. Because the sample is small, every rate we give is a range, not a single number.</dd>
-          </div>
-          <div>
-            <dt class="t-h4">2. Can a simulator reproduce those rates?</dt>
-            <dd class="t-body">Yes, for all <span data-fill="checked">12</span> kinds of event we have measured. Our traffic model produces <span data-fill="matching-alone">6</span> of them at the right rate on its own. An event generator adds the rest, and every event Dream records says whether the traffic produced it or the generator added it.</dd>
-          </div>
-          <div>
-            <dt class="t-h4">3. Does it change how driving software does?</dt>
-            <dd class="t-body">Yes. We drove the same textbook planner over the same <span data-fill="routes">100</span> routes twice. It crashed on <span data-fill="crash-generic">14</span> of them in orderly traffic and on <span data-fill="crash-gurgaon">27</span> in Gurgaon traffic.</dd>
-          </div>
-          <div>
-            <dt class="t-h4">4. Can other teams use it as it is?</dt>
-            <dd class="t-body">That was the test for everything we added. Dream follows the conventions AV teams already use for training environments and for scoring planners, its map exports to the standard format other simulators load, and its code, map and rates are open.</dd>
-          </div>
+        <dl class="stats">
+          <div><dt class="num"><span data-fill="clips">100</span></dt><dd>clips from our footage, each labelled by hand with its main event</dd></div>
+          <div><dt class="num"><span data-fill="matching">12</span> of <span data-fill="checked">12</span></dt><dd>kinds of event happen in Dream at a rate inside the range our footage gives</dd></div>
+          <div><dt class="num"><span data-m="best-right">50</span> of 100</dt><dd>clips the best AI video model labelled the way our labeller did. Answering "nothing" every time scores <span data-m="nothing">44</span></dd></div>
+          <div><dt class="num"><span data-fill="crash-gurgaon">27</span> vs <span data-fill="crash-generic">14</span></dt><dd>of 100 routes ending in a crash for a textbook planner, in Gurgaon traffic and in orderly traffic</dd></div>
         </dl>
       </div>
     </section>
 
-    <section class="bay" aria-labelledby="how">
-      <div class="shell">
-        <div class="head">
-          <p class="eyebrow t-label">How it works</p>
-          <h2 class="t-h3" id="how">From footage to a city you can drive.</h2>
-        </div>
-        <ol class="steps">
-          <li><b>Footage.</b> <span>Our dashcam drives in Delhi NCR, day and night.</span></li>
-          <li><b>Labels.</b> <span>Random 4-second clips, each given its main event by a person. When several things start in one clip, a fixed priority list decides which counts.</span></li>
-          <li><b>Rates.</b> <span>How often each event happens per hour of driving, with the range our sample allows.</span></li>
-          <li><b>Map.</b> <span>Every road, junction and signal in a stretch of Gurgaon about 5 km by 2 km, from OpenStreetMap.</span></li>
-          <li><b>Traffic.</b> <span>Vehicles that follow, change lanes and filter through gaps the way Indian traffic does, with speed breakers, potholes and bus stops on the roads.</span></li>
-          <li><b>Events.</b> <span>A generator that makes up whatever the traffic does not produce on its own, up to the measured rates.</span></li>
-          <li><b>Checks.</b> <span>The simulator counted the same way the clips were labelled and compared with the footage (the <a class="link" href="/realism">realism check</a>), a planner benchmark, and the standard tests for training environments.</span></li>
-        </ol>
+    <section class="bay" aria-labelledby="thesis">
+      <div class="shell prose">
+        <p class="eyebrow t-label">The thesis</p>
+        <h2 class="t-h3" id="thesis">The hard part is how often things happen.</h2>
+        <p class="t-body">Most driving software learns and is tested on orderly roads. Indian roads are not orderly, but they are not random either. Two-wheelers squeeze past every minute or so, people cross wherever they need to, autos cut in, and now and then a vehicle comes the wrong way. Each of these happens at some rate, and a rate is something you can count.</p>
+        <p class="t-body">We collect dashcam footage on Indian roads for a living. So we asked four questions. Can our footage alone tell us how often each of these things happens? Can a simulator reproduce those rates? Does it change how driving software does? And can other teams use the result as it is? The sections below take them in turn.</p>
       </div>
     </section>
 
-    <section class="bay" aria-labelledby="measured">
+    <section class="bay" aria-labelledby="footage">
       <div class="shell">
         <div class="head">
-          <p class="eyebrow t-label">Measured and assumed</p>
-          <h2 class="t-h3" id="measured">Where every number comes from.</h2>
-          <p class="t-body">We would rather say a number is assumed than let it pass as measured. The code marks each one the same way.</p>
+          <p class="eyebrow t-label">1 · The footage and the labels</p>
+          <h2 class="t-h3" id="footage">100 random clips, one main event each.</h2>
+          <p class="t-body">We drew 100 random windows from two of our drives through Gurgaon, one by day and one at night, all from the front camera. Each clip is 6 seconds: the labeller names the main event that starts in the middle 4 seconds, and the second either side is context. One person on our team labelled all 100 with a fixed list of events (taxonomy v0.4) and this rule, word for word:</p>
+          <blockquote class="quote" data-m="rule">Label only what starts in the highlighted middle 4 s; the first and last second are context. If several things start there, pick the highest one in this list (others before ego, closer calls first). Pick 'nothing' when nothing notable starts.</blockquote>
         </div>
-        <div class="compare">
+        <div class="gallery" data-m="gallery" aria-label="Sample clips"></div>
+        <p class="t-small caption">Six of the 100 clips, chosen to show different events. Faces, number plates and painted numbers are blurred, and the dashcam's own overlay is cropped off. Under each: our label, and what the best AI model said about the same clip.</p>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="ai">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">2 · Could AI do the labelling?</p>
+          <h2 class="t-h3" id="ai">Not yet. The best model barely beats answering "nothing".</h2>
+          <p class="t-body">Labelling by hand does not scale, so we gave five off-the-shelf AI video models the same 100 clips, the same list and the same rule. Each model's best setup is shown; we tried still frames and video, with and without telling it how our car was turning. The dashed line is what you get by answering "nothing" for every clip, since <span data-m="nothing">44</span> of the 100 clips have no event.</p>
+        </div>
+        <ul class="legend" aria-hidden="true">
+          <li><i class="sw-bar" style="background:var(--ink)"></i>All 100 clips</li>
+          <li><i class="sw-bar" style="background:var(--gilt)"></i>The 56 clips with an event</li>
+        </ul>
+        <div class="chart small" data-m="models"></div>
+        <div class="table-wrap">
+          <table class="data" data-m="models-table">
+            <thead><tr><th>Model</th><th>Clips right, of 100</th><th>Clips with an event right, of 56</th><th>Events it called "nothing"</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="t-small caption">The models miss routine events most: overtakes, and two-wheelers squeezing past. So every rate in Dream comes from the human labels, and AI labelling we can trust is part of our next work.</p>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="rates">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">3 · From labels to rates</p>
+          <h2 class="t-h3" id="rates">Counts, rates and how sure we are.</h2>
+          <p class="t-body">100 clips of 4 seconds are 400 seconds of driving, about 0.11 hours. A rate is the number of clips whose main event is X, divided by that time. With counts this small the uncertainty is large, so each rate comes with an exact 95% interval for a count of rare events (Poisson). A clip with two events counts only its main one, so these rates are lower bounds.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="data" data-m="rates-table">
+            <thead><tr><th>Event</th><th>Clips</th><th>Per hour</th><th>95% range per hour</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="sim">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">4 · The simulator</p>
+          <h2 class="t-h3" id="sim">A city that keeps those rates.</h2>
+        </div>
+        <ol class="steps">
+          <li><b>Map.</b> <span>Every road, junction and signal in a stretch of Gurgaon about 5 km by 2 km, from OpenStreetMap, cut at the box we downloaded, with a wall at its edge.</span></li>
+          <li><b>Traffic.</b> <span>Each vehicle keeps its gap with the Intelligent Driver Model and changes lanes with MOBIL, the standard models in traffic research. On top of them, Indian behaviour: two-wheelers filter through gaps and ride lane lines, vehicles take turns at junctions without signals, autos stop for passengers and buses stop at bus stops.</span></li>
+          <li><b>Road surface.</b> <span>Speed breakers and bus stops from OpenStreetMap where it maps them, the rest assumed; potholes assumed.</span></li>
+          <li><b>Events.</b> <span>A generator adds what the traffic does not produce on its own. It schedules each event at the rate still missing, divided by the share of its attempts that play out (some find no chance, or are called off), so the total lands on the measured rate.</span></li>
+          <li><b>Records.</b> <span>Every event says whether the traffic produced it or the generator added it, so anyone can separate the two.</span></li>
+        </ol>
+        <div class="pairs" data-m="pairs" aria-label="The same events on the road and in Dream"></div>
+        <p class="t-small caption">The same kind of event on the road and in Dream. Dream is drawn from above, while our clips come from the dashcam: giving driving software the camera's view of Dream is the next step.</p>
+        <div class="compare" style="margin-top:2.5rem">
           <div>
             <p class="t-label">Measured or mapped</p>
             <ul class="plain">
@@ -127,15 +153,77 @@
       </div>
     </section>
 
+    <section class="bay" aria-labelledby="count">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">5 · Counting Dream the same way</p>
+          <h2 class="t-h3" id="count">One event per 4-second window, by the same list.</h2>
+          <p class="t-body">To compare like with like, we count Dream exactly as the clips were labelled. Each simulated drive is cut into 4-second windows, and when several events start in one window, only the one highest in the labellers' list counts. Below are two minutes of one drive. Hover or tap a window to see what happened in it and which event counts.</p>
+        </div>
+        <div class="timeline" data-m="timeline"></div>
+        <p class="t-small caption" data-m="timeline-note">Filled ticks came from the traffic, hollow ones from the generator.</p>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="realism">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">6 · The realism check</p>
+          <h2 class="t-h3" id="realism">Dream against our footage.</h2>
+          <p class="t-body">Each band is the range our footage gives for that event, and the line inside is the best estimate. The dot is Dream, over <span data-fill="drives">48</span> drives and about <span data-fill="hours">3</span> hours. The generator aims at the measured rates, so switch it off to see the independent test of the traffic model.</p>
+        </div>
+        <div class="toggle" role="group" aria-label="Which simulator run to show">
+          <button type="button" data-m-field="sim_per_hour" aria-pressed="true">With the event generator</button>
+          <button type="button" data-m-field="traffic_alone_per_hour" aria-pressed="false">Traffic alone</button>
+        </div>
+        <p class="t-small toggle-note" data-m="toggle-note">&nbsp;</p>
+        <ul class="legend" aria-hidden="true">
+          <li><i class="sw-band"></i>Range in our footage</li>
+          <li><i class="sw-tick"></i>Best estimate</li>
+          <li><i class="sw-dot"></i>Dream, inside the range</li>
+          <li><i class="sw-dot" style="background:var(--caution)"></i>Outside it</li>
+        </ul>
+        <div class="chart" data-m="events"></div>
+        <div class="head" style="margin:3.5rem 0 1.5rem">
+          <h3 class="t-h4">How fast traffic moves</h3>
+          <p class="t-body">Share of time at each speed: our dashcam car from its GPS (minutes where it never moved faster than walking, mostly parked recordings, left out), against every car going our way within 60 m of our car in Dream. The typical speed matches. Dream's cars stand still far more often, partly because our test driver, a cautious textbook planner, stops a lot and the traffic queues with it.</p>
+        </div>
+        <ul class="legend" aria-hidden="true">
+          <li><i class="sw-line" style="background:var(--ink)"></i>Our dashcam car, in the play area</li>
+          <li><i class="sw-line" style="background:var(--gilt)"></i>Cars going our way in Dream</li>
+        </ul>
+        <div class="chart small" data-m="speeds"></div>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="bench">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">7 · Does it matter?</p>
+          <h2 class="t-h3" id="bench">A textbook planner, in orderly traffic and in Gurgaon traffic.</h2>
+          <p class="t-body">We drove the same standard planner (pure pursuit to follow the route and the Intelligent Driver Model for speed, as nuPlan's baseline does) over the same 100 seeded routes of 800 m, once in orderly lane-keeping traffic and once in Gurgaon traffic. Each square below is one route; hover or tap it to see how it ended.</p>
+        </div>
+        <div class="units" data-m="routes"></div>
+        <div class="table-wrap" style="margin-top:2rem">
+          <table class="data" data-m="bench-table">
+            <thead><tr><th>Traffic</th><th>nuPlan-style score</th><th>CARLA-style score</th><th>Routes finished</th><th>Collisions per km</th><th>Mean speed</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="t-small caption">Scores follow nuPlan's closed-loop score and the CARLA leaderboard's driving score, with 95% intervals over the routes; collisions count against the planner only when nuPlan would count them as its fault.</p>
+      </div>
+    </section>
+
     <section class="bay" aria-labelledby="limits">
       <div class="shell prose">
-        <p class="eyebrow t-label">What Dream does not show yet</p>
-        <h2 class="t-h3" id="limits">The limits, plainly.</h2>
+        <p class="eyebrow t-label">Limits</p>
+        <h2 class="t-h3" id="limits">What Dream does not show yet.</h2>
         <ul class="plain">
-          <li><b>Driving software here sees positions, not pictures.</b> In Dream, the software gets an exact list of every road user around it. A real car sees camera images. Dream tests the traffic, not the eyes.</li>
-          <li><b>The sample is small.</b> <span data-fill="clips">100</span> labelled clips give wide ranges. More labelled footage will narrow them.</li>
-          <li><b>One stretch of one city.</b> The rates come from our Delhi NCR footage and the map is a part of Gurgaon.</li>
-          <li><b>Simulated cars stand still too often,</b> partly because of the cautious textbook driver we tested with and partly because of how unsignalled junctions clear.</li>
+          <li><b>Driving software here sees positions, not pictures.</b> It gets an exact list of the road users around it. A real car sees camera images. Dream tests the traffic, not the eyes.</li>
+          <li><b>The sample is small and has one labeller.</b> 100 clips give wide ranges, and with one labeller we cannot yet say how much two people would agree.</li>
+          <li><b>Two drives, one stretch of one city.</b> Both drives are in Gurgaon, and the map is part of Gurgaon.</li>
+          <li><b>Simulated cars stand still too often,</b> partly because of the cautious planner we tested with and partly because of how junctions without signals clear.</li>
+          <li><b>Some numbers are assumed,</b> as listed above, and the code marks each one.</li>
         </ul>
       </div>
     </section>
@@ -144,13 +232,29 @@
       <div class="shell prose">
         <p class="eyebrow t-label">What comes next</p>
         <h2 class="t-h3" id="next">Driving software that sees what a car sees.</h2>
-        <p class="t-body">Our next step closes the biggest gap above: an environment where the software receives camera images from our footage, as it would on the road. First, it watches real frames from our four-camera rig, plans the next few seconds, and we score that plan against what actually happened. Then a world model paints the camera view of Dream's scenes, so the software can drive in closed loop and the traffic reacts to it.</p>
-        <p class="t-body">Dream is where we will put this work as it lands: training environments, world models and the benchmarks behind them. If you would like to help label footage, test your own planner, or need data from the roads you ship into, we would like to hear from you.</p>
+        <p class="t-body">The next step closes the biggest gap above: an environment where the software receives camera images from our footage, as it would on the road. First, it watches real frames from our four-camera rig, plans the next few seconds, and we score that plan against what actually happened. Then a world model paints the camera view of Dream's scenes, so the software drives in closed loop and the traffic reacts to it. Alongside: more labelled footage, a second labeller, and AI labelling we can trust.</p>
+        <p class="t-body">Dream is where this work will live as it lands: training environments, world models and the benchmarks behind them. If you would like to help label footage, test your own planner, or need data from the roads you ship into, we would like to hear from you.</p>
         <div class="actions" style="margin-top:0.5rem">
           <a class="btn-solid" href="/play">Drive Dream →</a>
-          <a class="btn-quiet" href="/realism">See the realism check</a>
           <a class="btn-quiet" href="https://thirdeyelabs.ai/#contact">Talk to us</a>
         </div>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="repro">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">Reproduce it</p>
+          <h2 class="t-h3" id="repro">Every number on this page comes from code in the repository.</h2>
+        </div>
+<pre class="code"><code>pip install "thirdeyelabs[sim]"
+
+<span class="c"># the realism check: Dream counted the way the clips were labelled, against our footage</span>
+python -m thirdeye_sim.realism --drives 48
+
+<span class="c"># the planner benchmark: 100 seeded routes in orderly and in Gurgaon traffic</span>
+python -m thirdeye_sim.evaluate --episodes 100</code></pre>
+        <p class="t-small caption">Code Apache-2.0 at <a class="link" href="https://github.com/thirdeyelabsai/thirdeye-sim">github.com/thirdeyelabsai/thirdeye-sim</a>. The footage summaries the checks compare against ship with the package (CC BY 4.0); the clips themselves stay with us.</p>
       </div>
     </section>
   </main>

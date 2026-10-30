@@ -2,13 +2,13 @@
 // (data/realism.json from python -m thirdeye_sim.realism, data/benchmark.json from thirdeye_sim.evaluate).
 import "./site.css";
 
-type EventRow = {
+export type EventRow = {
   event: string; name: string; rate: "measured" | "placeholder" | "assumed";
   measured_per_hour: number | null; low: number | null; high: number | null;
   sim_per_hour: number; traffic_alone_per_hour: number; match: boolean | null;
 };
-type Speeds = { median_kmh: number; mean_kmh: number; stopped_share: number; hours: number; clips?: number };
-type Realism = {
+type Speeds = { median_kmh: number; mean_kmh: number; stopped_share: number; hours: number; clips?: number; hist: number[] };
+export type Realism = {
   events: EventRow[];
   speeds: { real_play_area: Speeds; real_delhi_ncr: Speeds; sim_cars: Speeds; sim_our_car: Speeds };
   summary: { events_checked: number; events_matching: number; events_matching_traffic_alone: number;
@@ -32,10 +32,12 @@ function el<K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<string, 
   return n;
 }
 
-/** Each measured event: the range our footage gives (band), its middle (tick) and the simulator (dot). */
-function drawEvents(box: HTMLElement, rows: EventRow[]) {
+/** Each measured event: the range our footage gives (band), its middle (tick) and the simulator (dot): its run with
+ *  the event generator (field "sim_per_hour"), or the traffic alone ("traffic_alone_per_hour"). */
+export function drawEvents(box: HTMLElement, rows: EventRow[], field: "sim_per_hour" | "traffic_alone_per_hour" = "sim_per_hour") {
+  const val = (r: EventRow) => r[field];
   const data = rows.filter((r) => r.rate !== "assumed" && r.low !== null && r.high !== null)
-    .sort((a, b) => (b.measured_per_hour ?? 0) - (a.measured_per_hour ?? 0) || b.sim_per_hour - a.sim_per_hour);
+    .sort((a, b) => (b.measured_per_hour ?? 0) - (a.measured_per_hour ?? 0) || val(b) - val(a));
   const draw = () => {
     box.replaceChildren();
     const W = Math.max(300, box.clientWidth);
@@ -52,7 +54,7 @@ function drawEvents(box: HTMLElement, rows: EventRow[]) {
       left += 20;
     }
     const right = 14;
-    const max = Math.max(...data.map((r) => Math.max(r.high ?? 0, r.sim_per_hour))) * 1.05;
+    const max = Math.max(...data.map((r) => Math.max(r.high ?? 0, val(r)))) * 1.05;
     const step = max > 150 ? 50 : max > 60 ? 20 : 10;
     const top_ = Math.ceil(max / step) * step;
     const x = (v: number) => left + (v / top_) * (W - left - right);
@@ -74,13 +76,14 @@ function drawEvents(box: HTMLElement, rows: EventRow[]) {
       el("rect", { x: x(r.low!), y: y(i) - 6, width: Math.max(3, x(r.high!) - x(r.low!)), height: 12,
         fill: "var(--gilt-wash)", stroke: "oklch(0.45 0.12 55 / 0.45)", "stroke-width": 1 }, g);
       el("line", { x1: x(r.measured_per_hour!), x2: x(r.measured_per_hour!), y1: y(i) - 8, y2: y(i) + 8, stroke: "var(--gilt)", "stroke-width": 2 }, g);
-      el("circle", { cx: x(r.sim_per_hour), cy: y(i), r: 6, fill: r.match ? "var(--ink)" : "var(--caution)", stroke: "var(--background)", "stroke-width": 2 }, g);
+      const inside = val(r) >= r.low! && val(r) <= r.high!;
+      el("circle", { cx: x(val(r)), cy: y(i), r: 6, fill: inside ? "var(--ink)" : "var(--caution)", stroke: "var(--background)", "stroke-width": 2 }, g);
       const hit = el("rect", { x: 0, y: y(i) - rowH / 2 - (narrow ? 8 : 0), width: W, height: rowH, fill: "transparent" }, g);
       const show = (ev: PointerEvent) => {
         tip.replaceChildren();
         const b = document.createElement("b"); b.textContent = r.name; tip.appendChild(b);
         for (const line of [`Real roads: ${int(r.measured_per_hour!)} an hour (between ${int(r.low!)} and ${int(r.high!)})`,
-                            `Simulator: ${int(r.sim_per_hour)} an hour`]) {
+                            `${field === "sim_per_hour" ? "Simulator" : "Traffic alone"}: ${int(val(r))} an hour`]) {
           const d = document.createElement("div"); d.textContent = line; tip.appendChild(d);
         }
         tip.hidden = false;
@@ -95,7 +98,10 @@ function drawEvents(box: HTMLElement, rows: EventRow[]) {
   };
   draw();
   let last = box.clientWidth;
-  new ResizeObserver(() => { if (box.clientWidth !== last) { last = box.clientWidth; draw(); } }).observe(box);
+  const held = box as HTMLElement & { _watch?: ResizeObserver };
+  held._watch?.disconnect();   // (drawn again with another field: only the newest draw follows the width)
+  held._watch = new ResizeObserver(() => { if (box.clientWidth !== last) { last = box.clientWidth; draw(); } });
+  held._watch.observe(box);
 }
 
 async function load<T>(name: string): Promise<T | null> {
