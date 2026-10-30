@@ -1,0 +1,17 @@
+Gurgaon driving simulator (thirdeye-sim)
+Copyright 2026 Third Eye Labs
+
+The code is licensed under the Apache License, Version 2.0 (LICENSE).
+
+Map data
+  Map data © OpenStreetMap contributors, https://www.openstreetmap.org/copyright
+  The road network and everything derived from it (gurgaon/gurgaon.osm, gurgaon/gurgaon.net.xml,
+  gurgaon/osm_context.json, gurgaon/osm_places.json, and the built map files the package ships,
+  gurgaon_map.pkl and location.xml) is made available under the Open Database License (ODbL) 1.0,
+  https://opendatacommons.org/licenses/odbl/1-0/
+
+Measurements
+  The event rates, densities and speed summaries from Third Eye Labs' dashcam footage
+  (thirdeye_sim/data/measured.json, gurgaon/step3/measured_density.json) are licensed under
+  Creative Commons Attribution 4.0 International (CC BY 4.0),
+  https://creativecommons.org/licenses/by/4.0/

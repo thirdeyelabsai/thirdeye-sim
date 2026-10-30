@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thirdeye-sim"
+version = "0.1.0"
+description = "A driving environment on Gurgaon's real roads, in traffic and events at rates measured from Indian dashcam footage"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Third Eye Labs" }]
+keywords = ["autonomous-driving", "simulation", "reinforcement-learning", "gymnasium", "india", "planning"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "gymnasium>=1.0",
+    "numpy>=1.26",
+    "shapely>=2.0",
+]
+
+[project.optional-dependencies]
+# the 3D view (render_mode="rgb_array") and the desktop game (python -m thirdeye_sim.play)
+render = ["pygame>=2.5", "moderngl>=5.10", "pyproj>=3.6"]
+# rebuilding the road map from the SUMO network in gurgaon/ (a checkout only; the package ships the map built)
+map = ["sumolib>=1.20", "pyproj>=3.6"]
+
+[project.urls]
+Homepage = "https://sim.thirdeyelabs.ai"
+Repository = "https://github.com/thirdeyelabsai/thirdeye-sim"
+Documentation = "https://github.com/thirdeyelabsai/thirdeye-sim/blob/main/docs/environment.md"
+Company = "https://thirdeyelabs.ai"
+Dataset = "https://huggingface.co/datasets/thirdeyelabs/indian-road-dataset"
+
+[tool.setuptools]
+packages = ["thirdeye_sim"]
+include-package-data = false
+
+[tool.setuptools.package-data]
+# measured.json always; the rest is copied in by tools/build_package.py when the package is built
+thirdeye_sim = ["data/*.json", "data/*.xml", "data/*.pkl", "data/step3/*"]

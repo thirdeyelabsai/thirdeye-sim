@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this simulator, please cite it as below."
+type: software
+title: "Gurgaon driving simulator (thirdeye-sim)"
+abstract: "A Gymnasium driving environment on Gurgaon's real road network, in traffic that behaves like India's, with event rates measured from Third Eye Labs' dashcam footage of Delhi NCR."
+authors:
+  - name: "Third Eye Labs"
+    website: "https://thirdeyelabs.ai"
+version: "0.1.0"
+license: Apache-2.0
+url: "https://sim.thirdeyelabs.ai"
+repository-code: "https://github.com/thirdeyelabsai/thirdeye-sim"
+keywords:
+  - autonomous driving
+  - simulation
+  - reinforcement learning
+  - India
+  - gymnasium

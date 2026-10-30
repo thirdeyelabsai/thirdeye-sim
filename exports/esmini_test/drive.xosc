@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSCENARIO>
+  <FileHeader revMajor="1" revMinor="2" date="2026-10-30T00:00:00" description="Load test of the Gurgaon OpenDRIVE export: one car drives along Sunset Boulevard for 20 s" author="Third Eye Labs"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <LogicFile filepath="../gurgaon.xodr"/>
+  </RoadNetwork>
+  <Entities>
+    <ScenarioObject name="Ego">
+      <Vehicle name="car" vehicleCategory="car">
+        <ParameterDeclarations/>
+        <Performance maxSpeed="40" maxAcceleration="2.5" maxDeceleration="8"/>
+        <BoundingBox>
+          <Center x="1.3" y="0" z="0.75"/>
+          <Dimensions width="1.8" length="4.5" height="1.5"/>
+        </BoundingBox>
+        <Axles>
+          <FrontAxle maxSteering="0.6" wheelDiameter="0.6" trackWidth="1.6" positionX="2.6" positionZ="0.3"/>
+          <RearAxle maxSteering="0" wheelDiameter="0.6" trackWidth="1.6" positionX="0" positionZ="0.3"/>
+        </Axles>
+        <Properties/>
+      </Vehicle>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position><LanePosition roadId="18288" laneId="-3" offset="0" s="50"/></Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionDynamics dynamicsShape="step" value="0" dynamicsDimension="time"/>
+                <SpeedActionTarget><AbsoluteTargetSpeed value="10"/></SpeedActionTarget>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="drive">
+      <Act name="act">
+        <ManeuverGroup name="mg" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"><EntityRef entityRef="Ego"/></Actors>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition name="start" delay="0" conditionEdge="none">
+              <ByValueCondition><SimulationTimeCondition value="0" rule="greaterThan"/></ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+      </Act>
+    </Story>
+    <StopTrigger>
+      <ConditionGroup>
+        <Condition name="end" delay="0" conditionEdge="rising">
+          <ByValueCondition><SimulationTimeCondition value="20" rule="greaterThan"/></ByValueCondition>
+        </Condition>
+      </ConditionGroup>
+    </StopTrigger>
+  </Storyboard>
+</OpenSCENARIO>

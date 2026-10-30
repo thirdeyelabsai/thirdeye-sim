@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Gurgaon Driving Simulator · Third Eye Labs</title>
+  <link rel="canonical" href="https://sim.thirdeyelabs.ai/" />
+  <meta name="description" content="Drive Gurgaon's real roads in your browser, in traffic that behaves like India's. How often two-wheelers squeeze past, autos cut in and people cross comes from our dashcam footage. Open source, for AV teams too." />
+  <meta property="og:title" content="Drive Gurgaon's real roads, in traffic that behaves like India's" />
+  <meta property="og:description" content="An open-source driving simulator built from Third Eye Labs' dashcam footage of Delhi NCR. Play it in your browser or train your planner on it." />
+  <meta property="og:image" content="https://sim.thirdeyelabs.ai/play.jpg" />
+  <meta property="og:url" content="https://sim.thirdeyelabs.ai/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Fira+Code:wght@400&family=Inter:wght@400;500;600&display=swap" />
+  <script type="module" src="/src/site.ts"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell">
+      <a class="wordmark" href="https://thirdeyelabs.ai">Third Eye <span>Labs</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/play">Play</a>
+        <a href="/realism">Realism</a>
+        <a href="#python">Python</a>
+        <a href="https://github.com/thirdeyelabsai/thirdeye-sim">GitHub</a>
+        <a class="out" href="https://thirdeyelabs.ai">thirdeyelabs.ai ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-text">
+          <p class="eyebrow t-label">Open source · Gurgaon, India</p>
+          <h1 class="t-display">Drive Gurgaon's real roads, in traffic that behaves like India's.</h1>
+          <p class="t-lead">Two-wheelers squeeze past, autos cut in, people cross anywhere and cows stand in the lane. How often each of these happens comes from our dashcam footage of Delhi NCR.</p>
+          <div class="actions">
+            <a class="btn-solid" href="/play">Play in your browser →</a>
+            <a class="btn-quiet" href="#python">Use it in Python</a>
+          </div>
+        </div>
+        <figure>
+          <img src="/play.jpg" width="1280" height="800" alt="The simulator from above: our red car on Sunset Boulevard, Gurgaon, with a two-wheeler about to squeeze past on the right." />
+          <figcaption class="t-small">Runs in the browser, nothing to install. Here a two-wheeler is about to squeeze past on the right.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="built">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">What it is built from</p>
+          <h2 class="t-h2" id="built">Real roads, measured traffic.</h2>
+        </div>
+        <dl class="points">
+          <div>
+            <dt class="t-h3">The real road map</dt>
+            <dd class="t-body">Every road, junction and traffic signal in a stretch of Gurgaon about 5 km by 2 km, from OpenStreetMap.</dd>
+          </div>
+          <div>
+            <dt class="t-h3">Traffic from our footage</dt>
+            <dd class="t-body">How often each kind of event happens comes from dashcam clips our team labelled by hand. Where we have no measurement yet, the code says so.</dd>
+          </div>
+          <div>
+            <dt class="t-h3">Ready for AV teams</dt>
+            <dd class="t-body">The same simulator is a standard Python environment for training and testing driving software, with scores AV teams already use.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="match">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">Does it match real roads?</p>
+          <h2 class="t-h2" id="match"><span data-fill="matching">—</span> of the <span data-fill="checked">—</span> kinds of event we have measured happen about as often in the simulator as on real roads.</h2>
+          <p class="t-body">Each band is how often it happens on real Gurgaon roads. Our sample of footage is small, so it is a range, not a single number. The dot is the simulator: inside its band is a match.</p>
+        </div>
+        <ul class="legend" aria-hidden="true">
+          <li><i class="sw-band"></i>Range on real roads</li>
+          <li><i class="sw-tick"></i>Our best estimate</li>
+          <li><i class="sw-dot"></i>Simulator</li>
+        </ul>
+        <div class="chart" data-chart="events"></div>
+        <p class="t-small" style="margin-top:1.5rem"><a class="link" href="/realism">See the full check, and what it does not cover yet →</a></p>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="harder">
+      <div class="shell finding">
+        <p class="figure num"><span data-fill="crash-gurgaon">—</span> of <span data-fill="routes">—</span></p>
+        <div class="head" style="margin:0">
+          <p class="eyebrow t-label">Why it matters</p>
+          <h2 class="t-h3" id="harder">routes ended in a crash for a textbook self-driving planner in Gurgaon traffic. In orderly traffic, <span data-fill="crash-generic">—</span>.</h2>
+          <p class="t-body">We drove the same standard planner over the same routes twice: once in orderly, lane-keeping traffic and once in Gurgaon traffic. Software tested only in orderly traffic is not ready for Indian roads, and this is a free way to find out before a car does.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bay" id="python" aria-labelledby="py">
+      <div class="shell">
+        <div class="head">
+          <p class="eyebrow t-label">For AV teams</p>
+          <h2 class="t-h2" id="py">Use it in Python.</h2>
+          <p class="t-body">A Gymnasium environment that works with the reinforcement learning tools you already use. It follows the conventions of highway-env and MetaDrive, and scores planners the way nuPlan and CARLA do.</p>
+        </div>
+<pre class="code"><code><span class="c"># install</span>
+pip install "thirdeyelabs[sim]"
+
+<span class="c"># drive</span>
+<span class="k">import</span> gymnasium <span class="k">as</span> gym
+<span class="k">import</span> thirdeye_sim.env
+
+env = gym.make("ThirdEye/Gurgaon-v0")
+obs, info = env.reset(seed=0)
+obs, reward, terminated, truncated, info = env.step(env.action_space.sample())
+
+<span class="c"># score a planner, and check the traffic against our footage</span>
+python -m thirdeye_sim.evaluate
+python -m thirdeye_sim.realism</code></pre>
+        <p class="t-small" style="margin-top:1.25rem"><a class="link" href="https://github.com/thirdeyelabsai/thirdeye-sim">Code, documentation and the map on GitHub →</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <a class="wordmark" href="https://thirdeyelabs.ai">Third Eye <span>Labs</span></a>
+      <p class="t-small">Map data © OpenStreetMap contributors, ODbL. Code Apache-2.0. Event rates CC BY 4.0.</p>
+    </div>
+  </footer>
+</body>
+</html>

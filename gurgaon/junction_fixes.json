@@ -1,0 +1,44 @@
+{
+  "_note": "Junction fixes checked against satellite imagery. signals: one controller per group of OSM nodes that are a single real junction. august_kranti_flyover: OSM has signals here (countdown timers); netconvert's guess drops it when node positions move by a few cm (29 Oct). Each node is found by its id, or if the id changed (netconvert names merged junctions after their nodes), by the junction nearest its position.",
+  "signals": {
+    "gcr_sunset": [
+      {
+        "id": "249120693",
+        "at": [
+          77.095112,
+          28.463076
+        ]
+      },
+      {
+        "id": "314925922",
+        "at": [
+          77.096086,
+          28.463224
+        ]
+      },
+      {
+        "id": "6095157206",
+        "at": [
+          77.095363,
+          28.463493
+        ]
+      },
+      {
+        "id": "cluster_314356242_6095157217",
+        "at": [
+          77.095447,
+          28.463168
+        ]
+      }
+    ],
+    "august_kranti_flyover": [
+      {
+        "id": "cluster_12094661457_1806511576_266595943_5487614079_#1more",
+        "at": [
+          77.074183,
+          28.45888
+        ]
+      }
+    ]
+  }
+}

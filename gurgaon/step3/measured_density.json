@@ -1,0 +1,20 @@
+{
+ "day_0844": {
+  "car": 5.289,
+  "two_wheeler": 2.448,
+  "autorickshaw": 0.796,
+  "bus": 0.06,
+  "truck": 0.125,
+  "bicycle": 0.134,
+  "pedestrian": 1.094
+ },
+ "night_0030": {
+  "car": 1.457,
+  "two_wheeler": 0.109,
+  "autorickshaw": 0.013,
+  "bus": 0,
+  "truck": 0.052,
+  "bicycle": 0.021,
+  "pedestrian": 0.143
+ }
+}

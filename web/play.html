@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Drive Gurgaon · Third Eye Labs</title>
+  <link rel="canonical" href="https://sim.thirdeyelabs.ai/play" />
+  <meta name="description" content="Drive through Gurgaon traffic in your browser: road users and events at rates measured from Indian dashcam footage." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="view"></div>
+
+  <div id="speed" class="panel">
+    <svg id="dial" viewBox="0 0 120 120" aria-hidden="true">
+      <path class="track" d="" />
+      <path class="fill" d="" />
+      <g class="ticks"></g>
+      <text class="num" x="60" y="66">0</text>
+      <text class="unit" x="60" y="82">km/h</text>
+    </svg>
+    <div class="txt">
+      <div id="road">&nbsp;</div>
+      <div id="clock">00:00</div>
+      <div id="coords">&nbsp;</div>
+      <div class="lamps"><span id="lamp-horn">HORN</span><span id="lamp-dipper">DIPPER</span><span id="lamp-brake">BRAKE</span></div>
+    </div>
+    <div id="limit"><span></span></div>
+  </div>
+  <div id="under">
+    <div id="countdown" hidden><i></i><b></b></div>
+    <div id="speeding" hidden></div>
+    <div id="warn" hidden></div>
+    <div id="chaos" hidden></div>
+  </div>
+
+  <div id="banner" hidden><span class="tag"></span><span class="text"></span></div>
+  <div id="log" class="panel"><h3>Events</h3><ol></ol></div>
+  <div id="tags"></div>
+
+  <div id="help" class="panel" hidden>
+    <b>Drive</b> arrow keys or WASD &nbsp; <b>Brake hard</b> space<br />
+    <b>Horn</b> H &nbsp; <b>Flash lights</b> F<br />
+    <b>Zoom</b> + and - &nbsp; <b>Tilt</b> T &nbsp; <b>North up</b> C &nbsp; <b>Minimap</b> [ and ]<br />
+    <b>Calmer / busier traffic</b> , and .<br />
+    <b>Event banner</b> B &nbsp; <b>Pause</b> P &nbsp; <b>Restart</b> R &nbsp; <b>Keys</b> K<br />
+    <b>Back to the home page</b> Esc
+  </div>
+  <div id="keyhint">K keys</div>
+  <div id="attrib"><span class="home"><a href="/" title="About this simulator">Third Eye Labs</a> · </span>Map data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a></div>
+
+  <div id="waiting" hidden>Loading Gurgaon's traffic: the simulator runs in Python, right in your browser</div>
+  <div id="loading">
+    <div class="title">Drive Gurgaon</div>
+    <div class="sub">Gurgaon traffic, with road users and events at rates measured from Indian dashcam footage</div>
+    <div id="progress">Loading the city</div>
+    <div class="hint">Arrow keys or WASD to drive, H for the horn</div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+# The open-source release: only what the simulator, its web version and the map build need. Everything else in
+# this folder (older dashcam experiments, calibration runs, caches) stays out.
+/*
+!/.gitignore
+!/README.md
+!/LICENSE
+!/NOTICE
+!/CITATION.cff
+!/STANDARDS.md
+!/pyproject.toml
+!/thirdeye_sim/
+!/web/
+!/gurgaon/
+!/docs/
+!/tools/
+!/results/
+!/exports/
+
+__pycache__/
+*.pyc
+.DS_Store
+
+# caches and package builds (rebuilt from the sources)
+/thirdeye_sim/cache/
+/thirdeye_sim/data/*
+!/thirdeye_sim/data/measured.json
+/build/
+/dist/
+*.egg-info/
+
+# the map build: inputs, outputs and scripts, not the calibration runs or the copy from before the map was cut
+/gurgaon/before_clip/
+/gurgaon/step3/*
+!/gurgaon/step3/measured_density.json
+!/gurgaon/step3/probe_route.txt
+/gurgaon/map_check.html
+
+# the web version: dependencies, builds, the Vercel link, and the data export.py writes
+/web/node_modules/
+/web/dist/
+/web/.deploy/
+/web/public/data/
+.env*
+.vercel/
+
+# results: logs; exports: the OpenDRIVE file goes with each release as a download (26 MB)
+/results/*.log
+/exports/gurgaon.xodr
+/exports/esmini_test/*.dat
+/exports/esmini_test/*.csv

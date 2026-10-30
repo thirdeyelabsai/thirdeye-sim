@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Realism Check · Gurgaon Driving Simulator</title>
+  <link rel="canonical" href="https://sim.thirdeyelabs.ai/realism" />
+  <meta name="description" content="How closely the Gurgaon driving simulator matches real roads: how often each kind of event happens, and how fast traffic moves, against Third Eye Labs' dashcam footage." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Fira+Code:wght@400&family=Inter:wght@400;500;600&display=swap" />
+  <script type="module" src="/src/site.ts"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell">
+      <a class="wordmark" href="/">Third Eye <span>Labs</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/play">Play</a>
+        <a href="/realism" aria-current="page">Realism</a>
+        <a href="/#python">Python</a>
+        <a href="https://github.com/thirdeyelabsai/thirdeye-sim">GitHub</a>
+        <a class="out" href="https://thirdeyelabs.ai">thirdeyelabs.ai ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero solo" style="padding-bottom:3rem">
+      <div class="shell">
+        <div class="hero-text">
+          <p class="eyebrow t-label">Realism check</p>
+          <h1 class="t-h2">Does the simulator match real Gurgaon roads?</h1>
+          <p class="t-lead">We counted how often each kind of event happens in our dashcam footage and in the simulator. <span data-fill="matching">—</span> of the <span data-fill="checked">—</span> kinds we have measured happen about as often in both.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bay" style="padding-top:0" aria-labelledby="events">
+      <div class="shell">
+        <div class="head">
+          <h2 class="t-h3" id="events">How often each event happens</h2>
+          <p class="t-body">Each band is how often it happens on real roads. Our sample of footage is small, so it is a range, not a single number; the line inside is our best estimate. The dot is the simulator: inside its band is a match.</p>
+        </div>
+        <ul class="legend" aria-hidden="true">
+          <li><i class="sw-band"></i>Range on real roads</li>
+          <li><i class="sw-tick"></i>Our best estimate</li>
+          <li><i class="sw-dot"></i>Simulator</li>
+        </ul>
+        <div class="chart" data-chart="events"></div>
+        <p class="t-small" style="margin-top:1.5rem;max-width:66ch">Not in the chart: <span data-fill="assumed">—</span>. Our labelled clips do not include them yet, so the simulator uses rates we assumed, and says so.</p>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="speed">
+      <div class="shell">
+        <div class="head">
+          <h2 class="t-h3" id="speed">How fast traffic moves</h2>
+          <p class="t-body">Our dashcam car's speed from its GPS, against the cars driving alongside ours in the simulator.</p>
+        </div>
+        <div class="compare">
+          <div>
+            <p class="t-label">Typical speed</p>
+            <p class="pair"><span><b><span data-fill="real-speed">—</span> km/h</b><span class="t-small">Real roads</span></span><span><b><span data-fill="sim-speed">—</span> km/h</b><span class="t-small">Simulator</span></span></p>
+            <p class="t-small">Close.</p>
+          </div>
+          <div>
+            <p class="t-label">Time spent standing still</p>
+            <p class="pair"><span><b data-fill="real-stopped">—</b><span class="t-small">Real roads</span></span><span><b class="off" data-fill="sim-stopped">—</b><span class="t-small">Simulator</span></span></p>
+            <p class="t-small">Too much in the simulator. Part of it is the test driver: our car in these runs is a cautious textbook planner, which stood still <span data-fill="our-stopped">—</span> of the time, and the traffic queues with it. Part is how junctions without signals clear. We are working on both.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bay" aria-labelledby="not-yet">
+      <div class="shell">
+        <div class="head">
+          <h2 class="t-h3" id="not-yet">What we cannot check yet</h2>
+          <p class="t-body">How close vehicles get to each other, how hard they brake and how they weave between lanes. These need every vehicle's position in metres, and our footage comes from a single camera, so we cannot measure them precisely yet. More labelled footage will also narrow the bands above.</p>
+        </div>
+        <details class="more">
+          <summary class="t-label">How we measured</summary>
+          <ul>
+            <li>Real roads: <span data-fill="clips">—</span> random 4-second clips from our dashcam drives in Delhi NCR, each labelled by a person with the main event in it. When several things happen in one clip, the person picks one by a fixed priority list.</li>
+            <li>Simulator: <span data-fill="drives">—</span> drives on seeded routes in Gurgaon traffic, about <span data-fill="hours">—</span> hours in all, by a standard textbook planner (the Intelligent Driver Model). Each drive is cut into 4-second windows and counted the same way the clips were labelled.</li>
+            <li>The bands are exact 95% intervals for a count of rare events (Poisson). The simulator's event generator aims at the measured rates, so we also ran the traffic with the generator off: then <span data-fill="matching-alone">—</span> of the <span data-fill="checked">—</span> kinds still fall inside their bands from the traffic alone.</li>
+            <li>Speeds: our car's GPS speed once a second, leaving out minutes in which it never moved faster than walking (mostly parked recordings), against every car going our way within 60 m of ours in the simulator, once a second.</li>
+            <li>Anyone can rerun this check: <code class="t-mono">python -m thirdeye_sim.realism</code>.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <a class="wordmark" href="https://thirdeyelabs.ai">Third Eye <span>Labs</span></a>
+      <p class="t-small">Map data © OpenStreetMap contributors, ODbL. Code Apache-2.0. Event rates CC BY 4.0.</p>
+    </div>
+  </footer>
+</body>
+</html>
