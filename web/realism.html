@@ -34,7 +34,7 @@
         <div class="hero-text">
           <p class="eyebrow t-label">Realism check</p>
           <h1 class="t-h2">Does the simulator match real Gurgaon roads?</h1>
-          <p class="t-lead">We counted how often each kind of event happens in our dashcam footage and in the simulator. <span data-fill="matching">—</span> of the <span data-fill="checked">—</span> kinds we have measured happen about as often in both.</p>
+          <p class="t-lead">We counted how often each kind of event happens in our dashcam footage and in the simulator. <span data-fill="matching">12</span> of the <span data-fill="checked">12</span> kinds we have measured happen about as often in both.</p>
         </div>
       </div>
     </section>
@@ -51,7 +51,7 @@
           <li><i class="sw-dot"></i>Simulator</li>
         </ul>
         <div class="chart" data-chart="events"></div>
-        <p class="t-small" style="margin-top:1.5rem;max-width:66ch">Not in the chart: <span data-fill="assumed">—</span>. Our labelled clips do not include them yet, so the simulator uses rates we assumed, and says so.</p>
+        <p class="t-small" style="margin-top:1.5rem;max-width:66ch">Not in the chart: <span data-fill="assumed">cow standing in the road, dog running across and u-turn across the road</span>. Our labelled clips do not include them yet, so the simulator uses rates we assumed, and says so.</p>
       </div>
     </section>
 
@@ -64,13 +64,13 @@
         <div class="compare">
           <div>
             <p class="t-label">Typical speed</p>
-            <p class="pair"><span><b><span data-fill="real-speed">—</span> km/h</b><span class="t-small">Real roads</span></span><span><b><span data-fill="sim-speed">—</span> km/h</b><span class="t-small">Simulator</span></span></p>
+            <p class="pair"><span><b><span data-fill="real-speed">20</span> km/h</b><span class="t-small">Real roads</span></span><span><b><span data-fill="sim-speed">18</span> km/h</b><span class="t-small">Simulator</span></span></p>
             <p class="t-small">Close.</p>
           </div>
           <div>
             <p class="t-label">Time spent standing still</p>
-            <p class="pair"><span><b data-fill="real-stopped">—</b><span class="t-small">Real roads</span></span><span><b class="off" data-fill="sim-stopped">—</b><span class="t-small">Simulator</span></span></p>
-            <p class="t-small">Too much in the simulator. Part of it is the test driver: our car in these runs is a cautious textbook planner, which stood still <span data-fill="our-stopped">—</span> of the time, and the traffic queues with it. Part is how junctions without signals clear. We are working on both.</p>
+            <p class="pair"><span><b data-fill="real-stopped">14%</b><span class="t-small">Real roads</span></span><span><b class="off" data-fill="sim-stopped">34%</b><span class="t-small">Simulator</span></span></p>
+            <p class="t-small">Too much in the simulator. Part of it is the test driver: our car in these runs is a cautious textbook planner, which stood still <span data-fill="our-stopped">30%</span> of the time, and the traffic queues with it. Part is how junctions without signals clear. We are working on both.</p>
           </div>
         </div>
       </div>
@@ -85,9 +85,9 @@
         <details class="more">
           <summary class="t-label">How we measured</summary>
           <ul>
-            <li>Real roads: <span data-fill="clips">—</span> random 4-second clips from our dashcam drives in Delhi NCR, each labelled by a person with the main event in it. When several things happen in one clip, the person picks one by a fixed priority list.</li>
-            <li>Simulator: <span data-fill="drives">—</span> drives on seeded routes in Gurgaon traffic, about <span data-fill="hours">—</span> hours in all, by a standard textbook planner (the Intelligent Driver Model). Each drive is cut into 4-second windows and counted the same way the clips were labelled.</li>
-            <li>The bands are exact 95% intervals for a count of rare events (Poisson). The simulator's event generator aims at the measured rates, so we also ran the traffic with the generator off: then <span data-fill="matching-alone">—</span> of the <span data-fill="checked">—</span> kinds still fall inside their bands from the traffic alone.</li>
+            <li>Real roads: <span data-fill="clips">100</span> random 4-second clips from our dashcam drives in Delhi NCR, each labelled by a person with the main event in it. When several things happen in one clip, the person picks one by a fixed priority list.</li>
+            <li>Simulator: <span data-fill="drives">48</span> drives on seeded routes in Gurgaon traffic, about <span data-fill="hours">3</span> hours in all, by a standard textbook planner (the Intelligent Driver Model). Each drive is cut into 4-second windows and counted the same way the clips were labelled.</li>
+            <li>The bands are exact 95% intervals for a count of rare events (Poisson). The simulator's event generator aims at the measured rates, so we also ran the traffic with the generator off: then <span data-fill="matching-alone">6</span> of the <span data-fill="checked">12</span> kinds still fall inside their bands from the traffic alone.</li>
             <li>Speeds: our car's GPS speed once a second, leaving out minutes in which it never moved faster than walking (mostly parked recordings), against every car going our way within 60 m of ours in the simulator, once a second.</li>
             <li>Anyone can rerun this check: <code class="t-mono">python -m thirdeye_sim.realism</code>.</li>
           </ul>
